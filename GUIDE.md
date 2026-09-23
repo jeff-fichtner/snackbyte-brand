@@ -130,9 +130,15 @@ Extracted from the docs, which were already sounding like this.
   as the first word of a sentence. The only exception is the legal name (Snackbyte LLC)
   on legal and financial paper.
 
-**The headline:** "Software that knows where it ends." (also in `tokens.json` under `copy`, with the lines as they break and the sentence under it.) Under it: "snackbyte builds
-tools for the community around Bishop, California. Each one does one job, knows only
-what it needs, and stops there." "Building something good" is retired.
+**The headline:** "Software that knows where it ends." (also in `tokens.json` under
+`copy`, with the lines as they break and the sentence under it.) Under it: "snackbyte
+builds tools for people who need something that does not exist yet. Each one does one
+job, knows only what it needs, and stops there." "Building something good" is retired.
+
+**Place is the address, not the audience.** Bishop is where the work is done. It belongs
+on a surface as `copy.based` — "Based in Bishop, California." An earlier draft said the
+tools were *for* the community around Bishop; they are not. The work goes wherever it is
+wanted, and saying otherwise shrinks the business to its valley.
 
 ## Rules
 
