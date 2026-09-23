@@ -16,7 +16,7 @@ eight bits, the smallest whole unit; a byte is two nibbles of four, a bounded
 piece inside a bounded piece; a snack is a portion complete on its own. The
 mark is a byte, drawn as two nibbles, with a bite out of it.
 
-## Colour
+## Color
 
 Eight roles. Each has a day value and a night value; nothing else changes
 between themes. Ground and ink swap; the accents lift enough to read. Every
