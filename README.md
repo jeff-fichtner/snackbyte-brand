@@ -33,8 +33,44 @@ directly. It has no dependency on the npm package and never will.
 
 ## Changing a value
 
-1. Change it here, with the reason, in both `tokens.json` and `GUIDE.md`.
-2. Tag a version.
-3. Bump the tag in `snackbyte-brand-render` and publish.
+A brand change starts here and travels outward. Only the first step holds a
+decision; the rest is mechanical.
 
-A value changed anywhere else is a bug that the next build will overwrite.
+**1. Here — decide it.** Change the value in `tokens.json` *and* the same fact in
+`GUIDE.md`; they are two views of one thing and go stale separately. Say why in the
+commit. Then tag:
+
+```bash
+git commit -am "why this changed"
+git tag v1.2.0 && git push origin main --tags
+```
+
+Versioning is semantic: MAJOR if a value's meaning changes or a role disappears,
+MINOR for a new role or a new block, PATCH for wording and reasons.
+
+**2. `snackbyte-brand-render` — take it.** Bump the tag, rebuild, verify, commit the
+output, tag:
+
+```bash
+npm pkg set devDependencies.snackbyte-brand="github:jeff-fichtner/snackbyte-brand#v1.2.0"
+npm install && npm run build && npm run check:all
+git commit -am "take guide v1.2.0" && git tag v1.1.0 && git push origin main --tags
+```
+
+`check:all` fails if `dist/` is stale or if any value stops matching the guide.
+
+**3. Each consumer — install it.** In `snackbyte-site`, and in anything else that
+consumes the package:
+
+```bash
+npm i github:jeff-fichtner/snackbyte-brand-render#v1.1.0
+npm run check:all && npm run build
+```
+
+Then look at the built thing before handing it over.
+
+**4. Record where it landed.** If the change reaches a surface, update the Rollout
+table in `GUIDE.md`.
+
+A value changed anywhere but step 1 is a bug: the next build overwrites it, or the
+consumer's gate rejects it.
