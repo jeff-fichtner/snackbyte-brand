@@ -130,7 +130,7 @@ Extracted from the docs, which were already sounding like this.
   as the first word of a sentence. The only exception is the legal name (Snackbyte LLC)
   on legal and financial paper.
 
-**The headline:** "Software that knows where it ends." Under it: "snackbyte builds
+**The headline:** "Software that knows where it ends." (also in `tokens.json` under `copy`, with the lines as they break and the sentence under it.) Under it: "snackbyte builds
 tools for the community around Bishop, California. Each one does one job, knows only
 what it needs, and stops there." "Building something good" is retired.
 
