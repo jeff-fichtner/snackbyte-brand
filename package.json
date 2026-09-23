@@ -1,0 +1,11 @@
+{
+  "name": "snackbyte-brand",
+  "version": "1.0.0",
+  "description": "The snackbyte brand: values, rules and voice. Read by implementations; not itself code.",
+  "license": "UNLICENSED",
+  "files": ["tokens.json", "GUIDE.md", "README.md"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeff-fichtner/snackbyte-brand.git"
+  }
+}
