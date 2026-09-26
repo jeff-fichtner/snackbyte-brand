@@ -76,6 +76,25 @@ viewBox `0 0 64 64`, a square of `ground` with corner radius 14, the stack
 centred. For app icons and favicons. It follows the theme: Alkali by day,
 Basalt at night.
 
+## Motion
+
+The mark may **arrive by spelling the name**. Its eight cells are the eight bits of a
+byte, and they step through `snackbyte` one character at a time — each letter's code,
+most significant bit first, a filled cell for 1 and a faint one for 0 — while the
+wordmark types itself in step. Then all eight fill, and the bite is taken out of the
+last cell with a small overshoot. At rest it is exactly the mark.
+
+Every lowercase letter's first nibble is `0110` or `0111`, so the ink half barely moves
+and the sky half does the talking: the two nibbles behave differently because that is
+how the encoding works. It is the seam, in real data.
+
+The timings are `motion.arrival` in `tokens.json`: 140 ms per letter, a 160 ms hold with
+all eight filled, a 320 ms bite, and 0.16 opacity for a cell whose bit is 0.
+
+It plays once, on arrival, and nowhere it would repeat or loop. Under
+`prefers-reduced-motion` it does not play: the mark is simply there, at rest. It must
+never delay the words beside it.
+
 ## Lockups
 
 Two, and the only thing that decides between them is height.
@@ -169,7 +188,7 @@ tracks it, across repositories.
 | Favicons, touch icon, link card  | Done: generated and served.                                                                                                     |
 | The guide, extracted             | Done 2026-09-22: this repository is the authority.                                                                              |
 | `@snackbyte/brand`               | In progress: `snackbyte-brand-render` reads this and publishes it.                                                              |
-| The real site                    | Next. Constitution ratified; first spec pending.                                                                                |
+| The real site                    | Shipped 2026-09-23: the homepage. One screen; the work list withdrawn for now.                                                  |
 | `snackbyte-links` QR centre mark | Waiting: every link today carries a client's mark, not ours. When a snackbyte resource is linked, the centre mark is the stack. |
 | Email signature                  | Waiting on the real site. Beside lockup.                                                                                        |
 | Letterhead                       | Waiting on the real site. Beside lockup.                                                                                        |
