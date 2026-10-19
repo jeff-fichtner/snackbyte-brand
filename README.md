@@ -7,6 +7,7 @@ behind them.
 A value here is design data, not a string that belongs to a stylesheet — a
 printer, a designer and a build all read the same number. `tokens.json` is that
 data; [`GUIDE.md`](./GUIDE.md) is the same facts in prose, with the reasons.
+[`ROLLOUT.md`](./ROLLOUT.md) tracks where the brand has landed.
 
 ## Who reads this
 
@@ -46,7 +47,9 @@ git tag v1.2.0 && git push origin main --tags
 ```
 
 Versioning is semantic: MAJOR if a value's meaning changes or a role disappears,
-MINOR for a new role or a new block, PATCH for wording and reasons.
+MINOR for a new role or a new block, PATCH for wording and reasons. The version
+covers `tokens.json` and `GUIDE.md`, and reads the same in `tokens.json`,
+`package.json` and the tag; `ROLLOUT.md` records status and changes without one.
 
 **2. `snackbyte-brand-render` — take it.** Bump the tag, rebuild, verify, commit the
 output, tag:
@@ -69,8 +72,8 @@ npm run check:all && npm run build
 
 Then look at the built thing before handing it over.
 
-**4. Record where it landed.** If the change reaches a surface, update the Rollout
-table in `GUIDE.md`.
+**4. Record where it landed.** If the change reaches a surface, update its row in
+`ROLLOUT.md`. A status needs no tag.
 
 A value changed anywhere but step 1 is a bug: the next build overwrites it, or the
 consumer's gate rejects it.
