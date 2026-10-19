@@ -176,26 +176,6 @@ wanted, and saying otherwise shrinks the business to its valley.
   when the real site has run on them.
 - Print values for the palette, chosen on a proof.
 
-## Rollout
-
-Where the brand has landed and where it has not. This is the one place that
-tracks it, across repositories.
-
-| Surface                          | Status                                                                                                                                                                                                                                                              |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Homepage (`snackbyte.io`)        | Done 2026-09-21: holding page on the brand. Replaced 2026-09-23 by the real site.                                                                                                                                                                                   |
-| `/style`                         | Done: the readable guide. Unlinked; reached by URL.                                                                                                                                                                                                                 |
-| Favicons, touch icon, link card  | Done: generated and served.                                                                                                                                                                                                                                         |
-| The guide, extracted             | Done 2026-09-22: this repository is the authority.                                                                                                                                                                                                                  |
-| `@snackbyte/brand`               | Done: `snackbyte-brand-render` publishes it by git tag; `snackbyte-site` consumes v1.2.0, built from guide v1.3.0.                                                                                                                                                  |
-| The real site                    | Shipped 2026-09-23, closed 2026-10-13: the homepage. One screen: the mark arrives by spelling the name, then the headline, the claim with `copy.based`, and one address. The work list is withdrawn for now. No brand value is written in the site, heads included. |
-| `snackbyte-links` QR centre mark | Waiting: every link today carries a client's mark, not ours. When a snackbyte resource is linked, the centre mark is the stack.                                                                                                                                     |
-| Email signature                  | Ready to start: the real site has shipped. Beside lockup.                                                                                                                                                                                                           |
-| Letterhead                       | Ready to start: the real site has shipped. Beside lockup.                                                                                                                                                                                                           |
-| Business cards                   | Ready to start: the real site has shipped. Needs CMYK chosen on a proof.                                                                                                                                                                                            |
-| Social covers                    | Ready to start: the real site has shipped.                                                                                                                                                                                                                          |
-| Old deliverables                 | To archive as retired so nothing picks them up.                                                                                                                                                                                                                     |
-
 ## The old brand
 
 Retired 2026-09-21: the interlocking knot mark, Montserrat wordmark, indigo
