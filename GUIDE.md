@@ -112,19 +112,41 @@ The stack is for square places only and is never set beside the name.
 
 ## Type
 
-Bricolage Grotesque, one family at two optical sizes. The wordmark is always
-lowercase `snackbyte`: weight 800, `opsz` 96, letter-spacing −0.045em.
-Headlines take the display cut (800, `opsz` 96, tight tracking); anything
-read at length takes the text cut (400, `opsz` 12–14). Sentence case
-everywhere; no small caps, no tracked-out labels.
+Two faces on any page: Bricolage Grotesque, and one text face.
+
+**The mark is Bricolage, all of it.** The wordmark is always lowercase
+`snackbyte`: weight 800, `opsz` 96, letter-spacing −0.045em. The lockups, and
+any words drawn with the mark such as the place line, are Bricolage too: they
+are drawn from its metrics, not set as text. Words drawn with the mark take the
+text cut (400, `opsz` 14).
+
+**On a page, Bricolage takes h1.** Headlines take the display cut (800, `opsz`
+96, tight tracking). Everything else is the text face: h2 and below, body text,
+tables, captions, labels, buttons.
+
+**The text face is Inter**, on the site and in the tools. Bricolage set small
+reads as whimsy, and its plainest setting, `opsz` 12, is no plainer than `opsz`
+14. Inter is plain. Two grotesques close in size read as two hands
+drawing the same letters, so Bricolage stays large and h2 is Inter.
+
+**Legal and financial paper takes Source Serif 4 instead,** for the whole
+document: the privacy policy, terms, contracts, invoices, receipts — the paper
+that carries the legal name, Snackbyte LLC. A serif under a grotesque never
+reads as an accident, so on this paper h2 stays in Bricolage's display cut. A
+document never mixes Inter and the serif.
+
+Sentence case everywhere; no small caps, no tracked-out labels.
 
 The type scale is the cell-to-seam ratio, 10/7, from a 16px base: 16, 23, 33,
 47, 67, 95. The spacing scale is the seam unit at 4px, so every step is one of
 the mark's own numbers: 12 (gap), 28 (seam), 40 (cell), 68 (cell and seam),
 108 (the stack's height).
 
-Loaded from Google Fonts as
-`Bricolage+Grotesque:opsz,wght@12..96,300..800`; the font is OFL.
+The fonts are served by each surface from its own address, never fetched from
+a third party, so a visitor's browser asks no one else for them. The files come
+from `google/fonts` at commit `5e8a3ba`: Bricolage Grotesque (roman), Inter and
+Source Serif 4 (roman and italic), all variable. All three are OFL, and none
+declares a Reserved Font Name, so a subset keeps its name.
 
 ## Voice
 
@@ -167,7 +189,9 @@ wanted, and saying otherwise shrinks the business to its valley.
 - The bite is always at the end, always at the top right, always full size.
 - Ground and ink swap at night; the accents lift.
 - Sage and Bitterbrush are for marks and surfaces, not for words.
-- One family, two optical sizes, sentence case.
+- The mark is Bricolage; on a page Bricolage takes h1 and Inter takes the rest.
+- Legal and financial paper sets in Source Serif 4, with h2 in Bricolage.
+- Two faces on a page, never three; sentence case.
 - The name is lowercase, always; say what it does, then what it doesn't.
 
 ## Still open
