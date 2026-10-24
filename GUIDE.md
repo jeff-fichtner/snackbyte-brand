@@ -28,17 +28,21 @@ text role passes 4.5:1 on its ground and on the panel in both themes.
 | `ink`         | Granite `#45423E`   | Alkali `#ECEDEA` | Text; the first nibble.                                |
 | `muted`       | Shale `#6B6762`     | Ash `#A8A49D`    | Secondary text, captions.                              |
 | `sky`         | `#38639A`           | `#7FA7D3`        | Accent; the second nibble. Links, statuses, focus.     |
-| `sage`        | `#8B9B86`           | `#9DAE98`        | Marks and surfaces only. 2.9:1 on Alkali — never text. |
+| `sage`        | `#8B9B86`           | `#9DAE98`        | Marks and surfaces only. 2.5:1 on Alkali — never text. |
 | `sage-text`   | Sagebrush `#5F6E5A` | Sage `#9DAE98`   | Sage where it must carry words.                        |
 | `bitterbrush` | `#D2A93A`           | `#DDB447`        | Held in reserve. Never text.                           |
 | `rule`        | `#cfd1cb`           | `#4a4642`        | Hairlines and borders.                                 |
-| `panel`       | Tuff `#F6F7F4`      | Tuff `#36332F`   | A block set apart from the page. Raised, never sunk.   |
+| `panel`       | Tuff `#FAFBF8`      | Tuff `#36332F`   | A block set apart from the page. Raised, never sunk.   |
 
-The panel is a card, a callout, a table's header row, an exhibit's frame: one
-block lifted off the ground, in both themes. There is one, and it is raised,
-because a sunk panel cannot be told from the ground by day without taking muted
-text below 4.5:1. On it, ink is 9.3:1 by day and 10.7:1 at night, and muted 5.2
-and 5.1.
+The panel is one colour for a block set apart from the page, such as a card, a
+callout or an exhibit's frame; how each component uses it is the implementation's
+call. It is raised, lighter than the ground, in both themes: lighter reads as
+nearer, and a sunk panel cannot be told from the ground by day without taking
+muted text below 4.5:1. The ground is already light, so by day the lift alone is
+faint (1.13:1); a panel always carries a 1px `rule` edge, in both themes, so
+nothing else has to change between them. Panels do not nest, and a table's
+header row stays unfilled: it is quieter than the data, not louder. On the
+panel, ink is 9.6:1 by day and 10.7:1 at night, and muted 5.4 and 5.1.
 
 Sky by day was nudged from `#3F6FA3` to `#38639A` to pass as small text. The
 names are the Owens Valley's: the dry lake, the Sierra, the valley floor, the
@@ -161,8 +165,8 @@ because code is not text.
 Sentence case everywhere; no small caps, no tracked-out labels.
 
 The type scale is the cell-to-seam ratio, 10/7, from a 16px base: 16, 23, 33,
-47, 67, 95. Below it sits one step for dense data, 14 (two seams): table
-cells, captions, small labels. The ratio's own step down, 11, is too small to
+47, 67, 95. Below it sits one step for dense data, 14 (two seams), at line
+height 1.45: table cells, captions, small labels. The ratio's own step down, 11, is too small to
 read; at 14, Inter's x-height is 7.6px, larger than Bricolage's was at the
 same size. The spacing scale is the seam unit at 4px, so every step is one of
 the mark's own numbers: 12 (gap), 28 (seam), 40 (cell), 68 (cell and seam),
