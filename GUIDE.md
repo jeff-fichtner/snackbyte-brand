@@ -122,25 +122,41 @@ The stack is for square places only and is never set beside the name.
 Two faces on any page: Bricolage Grotesque, and one text face.
 
 **The mark is Bricolage, all of it.** The wordmark is always lowercase
-`snackbyte`: weight 800, `opsz` 96, letter-spacing −0.045em. The lockups, and
-any words drawn with the mark such as the place line, are Bricolage too: they
-are drawn from its metrics, not set as text. Words drawn with the mark take the
-text cut (400, `opsz` 14).
+`snackbyte`: weight 800, `opsz` 96, letter-spacing −0.045em, line height 1. The
+lockups, and any words drawn with the mark such as the place line, are Bricolage
+too: they are drawn from its metrics, not set as text. Words drawn with the mark
+take the mark's text cut (`markText`: 400, `opsz` 14).
 
-**On a page, Bricolage takes h1.** Headlines take the display cut (800, `opsz`
-96, tight tracking). Everything else is the text face: h2 and below, body text,
-tables, captions, labels, buttons.
+**On a page, Bricolage takes h1 and nothing else.** Two cuts, both at `opsz` 96
+and full width. The headline, on the home page, is 800, tracking −0.03em, line
+height 1.06. Every other page's title is 700, −0.02em, 1.05. The headline is the
+brand's one loud line; page titles sit a step below it so it stays that.
+Bricolage takes no emphasis: it has no italic, and nothing on a page is set in
+it smaller than h1.
 
-**The text face is Inter**, on the site and in the tools. Bricolage set small
-reads as whimsy, and its plainest setting, `opsz` 12, is no plainer than `opsz`
-14. Inter is plain. Two grotesques close in size read as two hands
-drawing the same letters, so Bricolage stays large and h2 is Inter.
+**The text face is Inter**, on the site and in the tools: everything below h1.
+Bricolage set small reads as whimsy, and its plainest setting, `opsz` 12, is no
+plainer than `opsz` 14. Inter is plain, and its x-height (0.546 em) is the
+largest of the faces tried, so it holds up best at the small sizes of tables.
+Two grotesques close in size read as two hands drawing the same letters, which
+is why Bricolage stays large.
 
-**Legal and financial paper takes Source Serif 4 instead,** for the whole
-document: the privacy policy, terms, contracts, invoices, receipts — the paper
-that carries the legal name, Snackbyte LLC. A serif under a grotesque never
-reads as an accident, so on this paper h2 stays in Bricolage's display cut. A
-document never mixes Inter and the serif.
+**Legal and financial paper takes Source Serif 4 instead,** for everything below
+the document's title, h2 included: the privacy policy, terms, contracts,
+invoices, receipts. The test is the kind of document, not whether the legal name
+appears on it. Below its title such a document reads as a book or a contract
+does: one face, hierarchy by size. A document never mixes Inter and the serif.
+
+**A text face has two weights, 400 and 600.** 600 is for h2, h3, labels, table
+headers, buttons and bold lead-ins; size, not a third weight, tells a heading
+from a label. Body text sets at line height 1.5 in either face, h2 and h3 at
+1.2. The serif needs no extra lead: its x-height is smaller, so at 1.5 its lines
+already sit about 16% more open than Inter's. Italic is the text face's own, for
+emphasis and the titles of works. No surface lets a browser fake a weight or a
+style (`font-synthesis: none`). Figures that line up in columns are tabular.
+
+Code sets in the system's monospace. It is the one third face a page may carry,
+because code is not text.
 
 Sentence case everywhere; no small caps, no tracked-out labels.
 
@@ -200,8 +216,8 @@ wanted, and saying otherwise shrinks the business to its valley.
 - Ground and ink swap at night; the accents lift.
 - Sage and Bitterbrush are for marks and surfaces, not for words.
 - The mark is Bricolage; on a page Bricolage takes h1 and Inter takes the rest.
-- Legal and financial paper sets in Source Serif 4, with h2 in Bricolage.
-- Two faces on a page, never three; sentence case.
+- Legal and financial paper sets in Source Serif 4 below its title.
+- Two faces on a page, never three, code aside; two weights in a text face; sentence case.
 - The name is lowercase, always; say what it does, then what it doesn't.
 
 ## Still open
