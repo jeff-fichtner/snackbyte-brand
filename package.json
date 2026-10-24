@@ -1,6 +1,6 @@
 {
   "name": "snackbyte-brand",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "description": "The snackbyte brand: values, rules and voice. Read by implementations; not itself code.",
   "license": "UNLICENSED",
   "files": ["tokens.json", "GUIDE.md", "README.md"],

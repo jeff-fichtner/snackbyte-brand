@@ -1,0 +1,859 @@
+<title>Text face candidates</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap">
+<style>
+  /* Layout: the decision, then the decision applied. Everything outside a sheet is fixed and set
+     in Bricolage's text cut, today's body face. Sheets carry their face as a class: Inter moves h2
+     to the text face; Bricolage takes h1 only, on every page. Colors and sizes are brand
+     tokens from tokens.json v1.3.1; --small is the step snackbyte-site asked for. */
+  :root {
+    --ground: #ECEDEA;
+    --ink: #45423E;
+    --muted: #6B6762;
+    --sky: #38639A;
+    --sage-text: #5F6E5A;
+    --rule: #cfd1cb;
+    --panel: #FAFBF8;
+
+    --bricolage: 'Bricolage Grotesque', system-ui, sans-serif;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --text: var(--bricolage);
+    --text-fvs: 'opsz' 14;
+    --text-lh: 1.5;
+
+    --small: 0.875rem;
+    --type-0: 1rem;
+    --type-1: 1.438rem;
+    --type-2: 2.063rem;
+    --type-3: 2.938rem;
+
+    --unit: 4px;
+    --gap: 12px;
+    --seam: 28px;
+    --cell: 40px;
+    --cell-seam: 68px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #2A2724;
+      --ink: #ECEDEA;
+      --muted: #A8A49D;
+      --sky: #7FA7D3;
+      --sage-text: #9DAE98;
+      --rule: #4a4642;
+      --panel: #36332F;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #2A2724;
+    --ink: #ECEDEA;
+    --muted: #A8A49D;
+    --sky: #7FA7D3;
+    --sage-text: #9DAE98;
+    --rule: #4a4642;
+    --panel: #36332F;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--text);
+    font-variation-settings: var(--text-fvs);
+    font-size: var(--type-0);
+    line-height: var(--text-lh);
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: var(--ground);
+  }
+  p, h1, h2, h3, figure, ul, dl, dd { margin: 0; }
+
+  .wrap {
+    max-width: 68rem;
+    margin-inline: auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap.wide { max-width: 84rem; }
+
+  /* Bricolage's display cut: the wordmark and h1 on both occasions. */
+  .wordmark, h1, .headline {
+    font-family: var(--bricolage);
+    font-variation-settings: 'opsz' 96;
+  }
+  .wordmark {
+    font-size: var(--type-1);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+  h1 {
+    font-size: var(--type-2);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  @media (min-width: 40rem) {
+    h1 { font-size: var(--type-3); }
+  }
+  h2 {
+    font-family: var(--bricolage);
+    font-variation-settings: 'opsz' 96;
+    font-size: var(--type-1);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  /* h3 sets weight only, as the page kit's does, so it follows the text face. */
+  h3 { font-size: var(--type-0); font-weight: 700; line-height: 1.3; }
+
+  .meta { color: var(--muted); font-size: var(--small); }
+  .link { color: var(--sky); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  button {
+    font: inherit;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: var(--unit);
+    min-height: 44px;
+    padding: 0 14px;
+    cursor: pointer;
+  }
+  button:hover { border-color: var(--muted); }
+  button:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+
+  /* The two occasions */
+  .serif { --text: var(--serif); --text-fvs: normal; --text-lh: 1.5; }
+  .sans { --text: var(--sans); --text-fvs: normal; --text-lh: 1.5; }
+  .serif, .sans {
+    font-family: var(--text);
+    font-variation-settings: var(--text-fvs);
+    line-height: var(--text-lh);
+    min-width: 0;
+  }
+  /* Bricolage takes h1 only. h2 is the text face on every page. */
+  .sans h2, .serif h2 {
+    font-family: var(--text);
+    font-variation-settings: normal;
+    letter-spacing: 0;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .sans h3, .serif h3 { font-weight: 600; line-height: 1.2; }
+  .sans table, .serif table, .sans figcaption, .serif figcaption { line-height: 1.45; }
+
+  /* Weights: two (bold is 600 everywhere) or three (h2 and h3 step up to 700). */
+  .w2 h2, .w2 h3 { font-weight: 600; }
+  .w3 h2, .w3 h3 { font-weight: 700; }
+  .trio {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--cell-seam) var(--cell);
+    align-items: start;
+  }
+  @media (max-width: 60rem) {
+    .trio { grid-template-columns: minmax(0, 1fr); }
+  }
+  .cut { display: grid; gap: var(--seam); padding-top: var(--seam); border-top: 2px solid var(--ink); }
+  .cut .h700 { font-weight: 700; letter-spacing: -0.02em; }
+  .cut .h800 { font-weight: 800; letter-spacing: -0.03em; }
+  .cut .headline.h700 { font-weight: 700; letter-spacing: -0.02em; }
+
+  /* Top: fixed */
+  .top { padding-block: var(--cell) var(--seam); display: grid; gap: var(--gap); }
+  .top-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gap); }
+  .theme { display: flex; align-items: center; gap: 6px; }
+  .theme .label { color: var(--muted); font-size: var(--small); margin-right: 6px; }
+  .theme button { font-size: var(--small); }
+  .top .lede { max-width: 42rem; font-size: var(--type-1); line-height: 1.35; }
+
+  .decision {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--seam) var(--cell);
+    margin-top: var(--seam);
+  }
+  @media (max-width: 46rem) {
+    .decision { grid-template-columns: minmax(0, 1fr); }
+  }
+  .decision > div { display: grid; gap: 4px; align-content: start; padding-top: var(--gap); border-top: 2px solid var(--ink); }
+  .decision dd { color: var(--muted); }
+  .decision .follows { grid-column: 1 / -1; border-top-width: 1px; border-top-color: var(--rule); }
+
+  section { padding-block: var(--cell-seam) 0; }
+  .sec-head { display: grid; gap: 6px; margin-bottom: var(--seam); }
+  .sec-head p { color: var(--muted); max-width: 46rem; }
+
+  .pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cell-seam) var(--cell);
+    align-items: start;
+  }
+  @media (max-width: 60rem) {
+    .pair { grid-template-columns: minmax(0, 1fr); }
+  }
+  .stack { display: grid; gap: var(--cell-seam); min-width: 0; }
+  .col-head { display: grid; gap: 4px; padding-bottom: var(--gap); }
+  .col-head .name { font-weight: 600; }
+  .col-head .legend { color: var(--muted); font-size: var(--small); }
+
+  .sheet-label { color: var(--sage-text); font-size: var(--small); margin-bottom: var(--gap); }
+  .sheet-label b { font-weight: 600; }
+  .sheet {
+    display: grid;
+    gap: var(--seam);
+    padding-top: var(--seam);
+    border-top: 2px solid var(--ink);
+  }
+  .sheet .lede { font-size: var(--type-1); line-height: 1.35; }
+  .legal { gap: var(--gap); }
+  .legal h1 { margin-bottom: 4px; }
+  .legal h2 { margin-top: var(--gap); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--gap) var(--seam);
+  }
+  .stats > div { display: grid; gap: 2px; align-content: start; border-top: 1px solid var(--rule); padding-top: var(--gap); }
+  .stats dt { font-size: var(--small); color: var(--muted); }
+  .stats .fig { font-size: var(--type-1); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.2; }
+
+  .points { padding-left: 1.2em; display: grid; gap: var(--gap); }
+  .points b, .sheet p b { font-weight: 600; }
+  .section-head { display: grid; gap: 6px; }
+
+  figure { display: grid; gap: var(--gap); }
+  .scroll { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--small);
+    font-variant-numeric: tabular-nums;
+  }
+  th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-weight: 600; color: var(--muted); }
+  td.n, th.n { text-align: right; padding-right: 0; white-space: nowrap; }
+  tfoot td { font-weight: 600; border-bottom: 0; }
+  figcaption { color: var(--muted); font-size: var(--small); }
+
+  .headline { font-size: var(--type-2); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; text-wrap: balance; }
+  .home .sub { font-size: var(--type-1); line-height: 1.35; }
+
+  /* nod's pages, as its templates lay them out: one heading, the matter, the credit. */
+  .nod .brand { font-weight: 600; }
+  .nod h1 { font-size: var(--type-2); }
+  .nod ul { padding-left: 1.2em; display: grid; gap: 4px; }
+  .nod .actions { display: flex; flex-wrap: wrap; gap: var(--gap); }
+  .nod .actions button { min-height: 48px; padding: 0 var(--seam); }
+  .nod .actions .primary { background: var(--ink); color: var(--ground); border-color: var(--ink); font-weight: 600; }
+  .nod .matter { display: grid; gap: var(--gap); }
+  .nod .credit { display: grid; gap: 4px; padding-top: var(--gap); border-top: 1px solid var(--rule); font-size: var(--small); color: var(--muted); }
+  .nod .credit .product { color: var(--ink); font-weight: 600; }
+
+  /* Where the faces meet */
+  .face {
+    display: grid;
+    grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+    gap: var(--seam) var(--cell);
+    padding-block: var(--seam);
+    border-top: 1px solid var(--rule);
+  }
+  @media (max-width: 50rem) {
+    .face { grid-template-columns: minmax(0, 1fr); }
+  }
+  .face .about { display: grid; gap: var(--gap); align-content: start; }
+  .face .name { font-family: var(--text); font-variation-settings: var(--text-fvs); font-size: var(--type-1); font-weight: 600; line-height: 1.15; }
+  .face .note { color: var(--muted); font-size: var(--small); }
+  .facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px var(--gap); font-size: var(--small); font-variant-numeric: tabular-nums; }
+  .facts dt { color: var(--muted); }
+  .face .samples { display: grid; gap: var(--seam); align-content: start; min-width: 0; }
+  .glyphs { font-size: clamp(var(--type-2), 7vw, var(--type-3)); line-height: 1.1; overflow-wrap: anywhere; }
+  .meet { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap) var(--seam); }
+  .meet.one { grid-template-columns: minmax(0, 1fr); }
+  @media (max-width: 36rem) {
+    .meet { grid-template-columns: minmax(0, 1fr); }
+  }
+  .meet > div { display: grid; gap: 6px; align-content: start; padding-top: var(--gap); border-top: 1px solid var(--rule); }
+  .meet .m-label { font-size: var(--small); color: var(--muted); font-family: var(--bricolage); font-variation-settings: 'opsz' 14; line-height: 1.5; }
+  .meet .ships { color: var(--sage-text); }
+  .meet .m-h2 { font-size: var(--type-1); font-weight: 700; line-height: 1.1; }
+  .meet .bric { font-family: var(--bricolage); font-variation-settings: 'opsz' 96; letter-spacing: -0.02em; }
+  .meet .self { font-family: var(--text); font-variation-settings: var(--text-fvs); }
+  .meet h3, .meet b { font-weight: 700; }
+  .meet p b { font-weight: 600; }
+
+  /* Italics: the real file beside the roman slanted, as a browser fakes it. */
+  .ital {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap) var(--seam);
+  }
+  @media (max-width: 36rem) {
+    .ital { grid-template-columns: minmax(0, 1fr); }
+  }
+  .ital > div { display: grid; gap: var(--gap); align-content: start; padding-top: var(--gap); border-top: 1px solid var(--rule); min-width: 0; }
+  .ital .m-label { font-size: var(--small); color: var(--muted); font-family: var(--bricolage); font-variation-settings: 'opsz' 14; line-height: 1.5; }
+  .ital .line { font-size: var(--type-1); line-height: 1.25; font-style: italic; }
+  .faux em { font-style: normal; display: inline-block; transform: skewX(-14deg); }
+  .faux .line { font-style: normal; transform: skewX(-14deg); transform-origin: left bottom; }
+
+  /* The panel: one colour, raised, always edged. */
+  .pnl { background: var(--panel); border: 1px solid var(--rule); border-radius: var(--unit); padding: var(--seam); display: grid; gap: var(--gap); min-width: 0; }
+  .panel-block { min-width: 0; }
+  @media (max-width: 36rem) {
+    .pnl { padding: var(--gap); }
+  }
+  .exhibit-wrap { margin-top: var(--cell-seam); }
+  .sage { color: var(--sage-text); }
+
+  footer { padding-block: var(--cell-seam) var(--cell); }
+  footer p { color: var(--muted); font-size: var(--small); max-width: 46rem; }
+  footer p + p { margin-top: var(--gap); }
+</style>
+
+<header class="wrap top">
+  <div class="top-row">
+    <p class="wordmark">snackbyte</p>
+    <div class="theme" role="group" aria-label="Theme">
+      <span class="label">Theme</span>
+      <button type="button" id="theme-light" data-theme-pick="light" aria-pressed="false">Day</button>
+      <button type="button" id="theme-dark" data-theme-pick="dark" aria-pressed="false">Night</button>
+      <button type="button" id="theme-system" data-theme-pick="system" aria-pressed="true">System</button>
+    </div>
+  </div>
+  <h1>Text face candidates</h1>
+  <p class="lede">Two faces on any page: Bricolage Grotesque, and one text face. Inter everywhere. Source Serif 4 for legal and financial paper, where the name is Snackbyte LLC.</p>
+
+  <dl class="decision">
+    <div>
+      <dt>Everywhere: Inter</dt>
+      <dd>The site's pages and the tools. Bricolage keeps the wordmark and h1. h2 sets in Inter, so two grotesques never meet at similar sizes.</dd>
+    </div>
+    <div>
+      <dt>Legal and financial paper: Source Serif 4</dt>
+      <dd>Privacy policy, terms, contracts, invoices, receipts: the documents that already carry the legal name. The serif replaces Inter for the whole document, h2 included. Bricolage keeps the wordmark and h1.</dd>
+    </div>
+    <div class="follows">
+      <dt>Everything else follows the text face</dt>
+      <dd>h3, body text, tables, captions, labels and buttons. Two weights, 400 and 600; body text at line height 1.5 in both faces, tables and captions at 14px and 1.45. A document never mixes Inter and the serif.</dd>
+    </div>
+  </dl>
+</header>
+
+<main>
+  <section class="wrap wide" id="everywhere">
+    <div class="sec-head">
+      <h2>Everywhere: Inter</h2>
+      <p>Real copy, set the way the site's page kit and nod's templates set it. Text outside the sheets is Bricolage's text cut, today's body face, for reference.</p>
+    </div>
+    <div class="pair">
+      <div class="stack">
+        <div class="col-head">
+          <p class="name">The site</p>
+          <p class="legend">Text, h2, h3 and buttons in Inter. Bricolage keeps the wordmark and h1.</p>
+        </div>
+        <div class="sans">
+          <p class="sheet-label"><b>Inter.</b> The brand's own words, as the home page uses them</p>
+          <article class="sheet home">
+            <p class="headline">Software that knows<br>where it ends.</p>
+            <p class="sub">snackbyte builds tools for people who need something that does not exist yet. Each one does one job, knows only what it needs, and stops there.</p>
+            <p>snackbyte makes the tools that somehow don’t exist yet. <span class="meta">Based in Bishop, California.</span></p>
+            <p>Something you need built? <span class="link">jeff@snackbyte.io</span></p>
+          </article>
+        </div>
+        <div class="sans">
+          <p class="sheet-label"><b>Inter.</b> A hosted page: the Playhouse 395 sound plan</p>
+          <article class="sheet">
+            <p class="meta">Playhouse 395 · Bishop, California</p>
+            <h1>Sound system plan</h1>
+            <p class="lede">Everything for the new system is bought. This is what we have, how it's set up, what's left before it goes into use, and the one purchase we're holding off on.</p>
+            <dl class="stats">
+              <div><dt>Spent, three orders</dt><dd class="fig">$2,268.34</dd><dd class="meta">with tax and shipping</dd></div>
+              <div><dt>Net, after selling the duplicate VocoPro</dt><dd class="fig">~$1,420 – $1,620</dd><dd class="meta">if it sells for $650–$850 (estimate)</dd></div>
+              <div><dt>On hold</dt><dd class="fig">~$820</dd><dd class="meta">4 more body mics, to reach 32</dd></div>
+            </dl>
+            <ul class="points">
+              <li><b>All of it is ordered:</b> the flight case, the stage box, a Phenyx 8-mic kit and a VocoPro 4-mic add-on. Nothing else has to be bought to use it.</li>
+              <li><b>The system runs 28 body mics and 4 handhelds,</b> all live at once. The frequencies are planned and meet the standard spacing rule, with room to spare on every brand.</li>
+              <li><b>We're pausing here.</b> The last 4 body mics (Samson) are on hold, to add later if we want them.</li>
+              <li><b>Before first use:</b> cables, power, batteries, setting frequencies, and one full test with every mic on. <span class="link">Section 3.</span></li>
+            </ul>
+            <div class="section-head">
+              <p class="meta">01 · Done</p>
+              <h2>What we bought</h2>
+            </div>
+            <h3>Four items across three orders</h3>
+            <p>With the WING console and the VocoPro set we already own, this is everything the system needs.</p>
+            <figure>
+              <div class="scroll">
+                <table>
+                  <thead><tr><th>Item</th><th>From</th><th class="n">Ordered</th><th class="n">Price</th></tr></thead>
+                  <tbody>
+                    <tr><td>ProX XS-BWING W flight case</td><td>Sweetwater</td><td class="n">Oct 6</td><td class="n">$444.95</td></tr>
+                    <tr><td>Behringer S32 stage box</td><td>Sweetwater</td><td class="n">Oct 6</td><td class="n">$689.00</td></tr>
+                    <tr><td>Phenyx Pro PTU-6000-8B (8 body mics)</td><td>Phenyx</td><td class="n">Oct 13</td><td class="n">$568.10</td></tr>
+                    <tr><td>VocoPro Digital-Quad-B-500 (4 body mics)</td><td>B&amp;H</td><td class="n">Oct 14</td><td class="n">$389.00</td></tr>
+                    <tr><td>Sales tax</td><td></td><td></td><td class="n">$177.29</td></tr>
+                  </tbody>
+                  <tfoot><tr><td>Total</td><td></td><td></td><td class="n">$2,268.34</td></tr></tfoot>
+                </table>
+              </div>
+              <figcaption>Three orders, October 6 to 14. The table is set at 0.875rem, the step snackbyte-site asked for; it is not in the guide yet.</figcaption>
+            </figure>
+            <p class="meta">Nothing on this page needs a decision now except where the wireless receivers live, which sets the length of one cable.</p>
+          </article>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="col-head">
+          <p class="name">Tools</p>
+          <p class="legend">The same rule. nod's pages have one heading each, so there is no h2 here.</p>
+        </div>
+        <div class="sans">
+          <p class="sheet-label"><b>Inter.</b> nod's consent page, for an example app called Slate</p>
+          <article class="sheet nod">
+            <p class="brand">Slate</p>
+            <h1>Slate wants to know who you are</h1>
+            <div class="matter">
+              <p>If you continue, Slate is told:</p>
+              <ul>
+                <li>An identifier for you, the same each time you come back</li>
+                <li>Your email address</li>
+                <li>Your name and profile picture</li>
+              </ul>
+              <p>It is told nothing else.</p>
+            </div>
+            <div class="actions">
+              <button type="button" id="nod-continue" class="primary">Continue</button>
+              <button type="button" id="nod-cancel">Cancel</button>
+            </div>
+            <div class="credit">
+              <p><span class="product">nod</span> · sign-in by snackbyte</p>
+              <p><span class="link">Report a security problem</span></p>
+            </div>
+          </article>
+        </div>
+        <div class="sans">
+          <p class="sheet-label"><b>Inter.</b> nod's security policy page</p>
+          <article class="sheet nod">
+            <h1>Reporting a security problem</h1>
+            <div class="matter">
+              <p>If you have found a way to sign in as someone else, to read what another person or another app should not, or any other weakness in this sign-in service, tell us at <span class="link">security@snackbyte.io</span>.</p>
+              <p>In scope: this service and the sign-in pages it serves on this address. Out of scope: the apps that use it, and the providers you sign in with, which have their own reporting.</p>
+              <p>Please do not test against accounts that are not yours, and give us a reasonable time to fix a problem before you describe it publicly. Every report is read and answered.</p>
+            </div>
+            <div class="credit">
+              <p><span class="product">nod</span> · sign-in by snackbyte</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap wide" id="legal">
+    <div class="sec-head">
+      <h2>Legal and financial paper: Source Serif 4</h2>
+      <p>The site's privacy policy, from its first lines. On the left, as it would ship: everything below the title in the serif, h2 included. On the right, the same page without the occasion, for comparison.</p>
+    </div>
+    <div class="pair">
+      <div class="serif">
+        <p class="sheet-label"><b>Source Serif 4.</b> h2 in the serif. This is what ships</p>
+        <article class="sheet legal">
+          <h1>Privacy policy</h1>
+          <p class="meta">Last changed October 22, 2026.</p>
+          <p>snackbyte is Snackbyte LLC, a California limited liability company. This policy covers this site, its short links at go.snackbyte.io, and the snackbyte products you sign in to with Google. It says what we keep, why, for how long, and who sees it.</p>
+          <p>We don't sell what we keep, and we don't use it for advertising.</p>
+          <h2>This site</h2>
+          <p>snackbyte.io sets no cookies and runs no analytics. It loads its typeface from Google Fonts, so your browser asks Google for the font.</p>
+          <p>Our server logs each request: your IP address, the page, what your browser says it is, and the time. We use the logs to keep the site running, and Google Cloud deletes them after 30 days.</p>
+          <h2>Signing in with Google</h2>
+          <p>Today you sign in to snackbyte's products with your Google account, through OpenID Connect. The part of snackbyte that does this is called nod. It stores no passwords, ever: Google checks who you are and tells us.</p>
+          <h2>What we keep</h2>
+          <ul class="points">
+            <li><b>You:</b> an id we make for you, your snackbyte id, which is what an app knows you by; and whether your account is active.</li>
+            <li><b>Your email addresses,</b> each marked verified or not.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="sans">
+        <p class="sheet-label"><b>Inter.</b> The same page without the occasion</p>
+        <article class="sheet legal">
+          <h1>Privacy policy</h1>
+          <p class="meta">Last changed October 22, 2026.</p>
+          <p>snackbyte is Snackbyte LLC, a California limited liability company. This policy covers this site, its short links at go.snackbyte.io, and the snackbyte products you sign in to with Google. It says what we keep, why, for how long, and who sees it.</p>
+          <p>We don't sell what we keep, and we don't use it for advertising.</p>
+          <h2>This site</h2>
+          <p>snackbyte.io sets no cookies and runs no analytics. It loads its typeface from Google Fonts, so your browser asks Google for the font.</p>
+          <p>Our server logs each request: your IP address, the page, what your browser says it is, and the time. We use the logs to keep the site running, and Google Cloud deletes them after 30 days.</p>
+          <h2>Signing in with Google</h2>
+          <p>Today you sign in to snackbyte's products with your Google account, through OpenID Connect. The part of snackbyte that does this is called nod. It stores no passwords, ever: Google checks who you are and tells us.</p>
+          <h2>What we keep</h2>
+          <ul class="points">
+            <li><b>You:</b> an id we make for you, your snackbyte id, which is what an app knows you by; and whether your account is active.</li>
+            <li><b>Your email addresses,</b> each marked verified or not.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap wide" id="panel">
+    <div class="sec-head">
+      <h2>The panel</h2>
+      <p>PR #4's new colour: one panel for a block set apart from the page, raised in both themes and always edged with a 1px rule. How each component uses it is the kit's call; these are examples. Panels do not nest, and a table's header row stays unfilled.</p>
+    </div>
+    <div class="trio sans">
+      <div class="panel-block">
+        <p class="sheet-label"><b>A card.</b> Fill and edge</p>
+        <div class="pnl">
+          <h3>Before first use</h3>
+          <p>Cables, power, batteries, setting frequencies, and one full test with every mic on.</p>
+          <p class="meta">Section 3 · <span class="link">Read the checklist</span></p>
+        </div>
+      </div>
+      <div class="panel-block">
+        <p class="sheet-label"><b>A callout.</b> The same fill; any bar is the kit's call</p>
+        <div class="pnl">
+          <p><b>We're pausing here.</b> The last 4 body mics (Samson) are on hold, to add later if we want them.</p>
+          <p class="sage">On hold: ~$820</p>
+        </div>
+      </div>
+      <div class="panel-block">
+        <p class="sheet-label"><b>Every text colour on it</b> passes 4.5:1</p>
+        <div class="pnl">
+          <p>Ink: the main text.</p>
+          <p class="meta">Muted: secondary text and captions.</p>
+          <p class="link">Sky: links and statuses.</p>
+          <p class="sage">Sagebrush: sage that carries words.</p>
+        </div>
+      </div>
+    </div>
+    <div class="exhibit-wrap sans">
+      <p class="sheet-label"><b>An exhibit's frame,</b> holding a table set at the small step. The header row is unfilled.</p>
+      <div class="pnl">
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Item</th><th>From</th><th class="n">Ordered</th><th class="n">Price</th></tr></thead>
+            <tbody>
+              <tr><td>ProX XS-BWING W flight case</td><td>Sweetwater</td><td class="n">Oct 6</td><td class="n">$444.95</td></tr>
+              <tr><td>Behringer S32 stage box</td><td>Sweetwater</td><td class="n">Oct 6</td><td class="n">$689.00</td></tr>
+              <tr><td>Phenyx Pro PTU-6000-8B (8 body mics)</td><td>Phenyx</td><td class="n">Oct 13</td><td class="n">$568.10</td></tr>
+              <tr><td>VocoPro Digital-Quad-B-500 (4 body mics)</td><td>B&amp;H</td><td class="n">Oct 14</td><td class="n">$389.00</td></tr>
+            </tbody>
+            <tfoot><tr><td>Total</td><td></td><td></td><td class="n">$2,268.34</td></tr></tfoot>
+          </table>
+        </div>
+        <figcaption>Three orders, October 6 to 14. 14px at line height 1.45, tabular figures.</figcaption>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap wide" id="weights">
+    <div class="sec-head">
+      <h2>Weights: two or three</h2>
+      <p>Two weights: 400, and 600 for everything bold. Three: 400, then 600 for labels, table headers and bold lead-ins, and 700 for h2 and h3. The same top of the Playhouse plan each way, in Inter and in Source Serif 4. h1 is Bricolage at 700 in all four; page titles at 800 are compared after.</p>
+    </div>
+
+    <div class="pair">
+      <div class="sans w2">
+        <p class="sheet-label"><b>Inter, two weights: ships.</b> h2 and h3 at 600, the same as the table header</p>
+        <article class="sheet">
+          <p class="meta">Playhouse 395 · Bishop, California</p>
+          <h1>Sound system plan</h1>
+          <div class="section-head">
+            <p class="meta">01 · Done</p>
+            <h2>What we bought</h2>
+          </div>
+          <h3>Four items across three orders</h3>
+          <p><b>All of it is ordered:</b> the flight case, the stage box, a Phenyx 8-mic kit and a VocoPro 4-mic add-on.</p>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Item</th><th>From</th><th class="n">Price</th></tr></thead>
+              <tbody>
+                <tr><td>ProX XS-BWING W flight case</td><td>Sweetwater</td><td class="n">$444.95</td></tr>
+                <tr><td>Behringer S32 stage box</td><td>Sweetwater</td><td class="n">$689.00</td></tr>
+                <tr><td>Phenyx Pro PTU-6000-8B (8 body mics)</td><td>Phenyx</td><td class="n">$568.10</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total</td><td></td><td class="n">$2,268.34</td></tr></tfoot>
+            </table>
+          </div>
+        </article>
+      </div>
+      <div class="sans w3">
+        <p class="sheet-label"><b>Inter, three weights: not chosen.</b> h2 and h3 at 700</p>
+        <article class="sheet">
+          <p class="meta">Playhouse 395 · Bishop, California</p>
+          <h1>Sound system plan</h1>
+          <div class="section-head">
+            <p class="meta">01 · Done</p>
+            <h2>What we bought</h2>
+          </div>
+          <h3>Four items across three orders</h3>
+          <p><b>All of it is ordered:</b> the flight case, the stage box, a Phenyx 8-mic kit and a VocoPro 4-mic add-on.</p>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Item</th><th>From</th><th class="n">Price</th></tr></thead>
+              <tbody>
+                <tr><td>ProX XS-BWING W flight case</td><td>Sweetwater</td><td class="n">$444.95</td></tr>
+                <tr><td>Behringer S32 stage box</td><td>Sweetwater</td><td class="n">$689.00</td></tr>
+                <tr><td>Phenyx Pro PTU-6000-8B (8 body mics)</td><td>Phenyx</td><td class="n">$568.10</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total</td><td></td><td class="n">$2,268.34</td></tr></tfoot>
+            </table>
+          </div>
+        </article>
+      </div>
+
+      <div class="serif w2">
+        <p class="sheet-label"><b>Source Serif 4, two weights: ships.</b> h2 and h3 at 600</p>
+        <article class="sheet legal">
+          <h1>Privacy policy</h1>
+          <p class="meta">Last changed October 22, 2026.</p>
+          <h2>What we keep</h2>
+          <p>For each organisation whose apps you sign in to, which we call a tenant, we keep a separate record of you.</p>
+          <h3>How long we keep it</h3>
+          <p><b>Your records have no set end.</b> They are kept until you ask us to delete them.</p>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Record</th><th>Kept</th></tr></thead>
+              <tbody>
+                <tr><td>Server logs</td><td>30 days</td></tr>
+                <tr><td>Your account</td><td>Until you ask us to delete it</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+      <div class="serif w3">
+        <p class="sheet-label"><b>Source Serif 4, three weights: not chosen.</b> h2 and h3 at 700</p>
+        <article class="sheet legal">
+          <h1>Privacy policy</h1>
+          <p class="meta">Last changed October 22, 2026.</p>
+          <h2>What we keep</h2>
+          <p>For each organisation whose apps you sign in to, which we call a tenant, we keep a separate record of you.</p>
+          <h3>How long we keep it</h3>
+          <p><b>Your records have no set end.</b> They are kept until you ask us to delete them.</p>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Record</th><th>Kept</th></tr></thead>
+              <tbody>
+                <tr><td>Server logs</td><td>30 days</td></tr>
+                <tr><td>Your account</td><td>Until you ask us to delete it</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top: var(--cell-seam)">
+      <h3>Page titles: 700 or 800</h3>
+      <p>The tokens say Bricolage headlines are 800; the site's pages set h1 at 700, and only the home headline is 800. Three ways to settle it, each with a page title and the home headline.</p>
+    </div>
+    <div class="trio sans">
+      <div class="cut">
+        <p class="sheet-label"><b>Two cuts: ships.</b> Page titles 700, the home headline 800, as the site sets them today</p>
+        <p class="headline h800">Software that knows<br>where it ends.</p>
+        <h1 class="h700">Sound system plan</h1>
+        <p>Everything for the new system is bought.</p>
+      </div>
+      <div class="cut">
+        <p class="sheet-label"><b>One cut at 800: not chosen.</b></p>
+        <p class="headline h800">Software that knows<br>where it ends.</p>
+        <h1 class="h800">Sound system plan</h1>
+        <p>Everything for the new system is bought.</p>
+      </div>
+      <div class="cut">
+        <p class="sheet-label"><b>One cut at 700: not chosen.</b></p>
+        <p class="headline h700">Software that knows<br>where it ends.</p>
+        <h1 class="h700">Sound system plan</h1>
+        <p>Everything for the new system is bought.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="italics">
+    <div class="sec-head">
+      <h2>Italics: the file, or faked</h2>
+      <p>PR #3 ships an italic file for Inter and for Source Serif 4. Without one, a browser fakes italic by slanting the roman, about 14°; the faked samples here are the roman slanted that much. Bricolage has no italic, so the mark and h1 never take one.</p>
+    </div>
+
+    <article class="face" style="--text: var(--sans); --text-fvs: normal; --text-lh: 1.5">
+      <div class="about">
+        <p class="name">Inter</p>
+        <p class="note">Inter's italic is mostly the roman slanted, with a few letters redrawn, so the faked one is close.</p>
+      </div>
+      <div class="samples" style="font-family: var(--text); line-height: var(--text-lh)">
+        <div class="ital">
+          <div>
+            <p class="m-label">Italic file</p>
+            <p class="line">Software that knows where it ends.</p>
+            <p>It stores <em>no</em> passwords. The last 4 body mics are <em>on hold</em>, to add later if we want them.</p>
+          </div>
+          <div class="faux">
+            <p class="m-label">Faked: the roman, slanted</p>
+            <p class="line">Software that knows where it ends.</p>
+            <p>It stores <em>no</em> passwords. The last 4 body mics are <em>on hold</em>, to add later if we want them.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="face" style="--text: var(--serif); --text-fvs: normal; --text-lh: 1.5">
+      <div class="about">
+        <p class="name">Source Serif 4</p>
+        <p class="note">A true italic: different letters, not slanted ones. This is where faking it shows most.</p>
+      </div>
+      <div class="samples" style="font-family: var(--text); line-height: var(--text-lh)">
+        <div class="ital">
+          <div>
+            <p class="m-label">Italic file</p>
+            <p class="line">Your records have no set end.</p>
+            <p>We <em>don't</em> sell what we keep, and we <em>don't</em> use it for advertising.</p>
+          </div>
+          <div class="faux">
+            <p class="m-label">Faked: the roman, slanted</p>
+            <p class="line">Your records have no set end.</p>
+            <p>We <em>don't</em> sell what we keep, and we <em>don't</em> use it for advertising.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="wrap" id="meet">
+    <div class="sec-head">
+      <h2>Where the faces meet</h2>
+      <p>An h2 directly above an h3, the closest the two faces come on a page. The pair that ships is marked. The other is the near miss its h2 rule avoids.</p>
+    </div>
+
+    <article class="face" style="--text: var(--sans); --text-fvs: normal; --text-lh: 1.5">
+      <div class="about">
+        <p class="name">Inter</p>
+        <p class="note">Everywhere. The largest x-height of the three, so 0.875rem is already enough in a table.</p>
+        <dl class="facts">
+          <dt>x-height</dt><dd>0.546 em</dd>
+          <dt>In a table</dt><dd>7.6px</dd>
+          <dt>Set width</dt><dd>0.1% wider than Bricolage</dd>
+        </dl>
+      </div>
+      <div class="samples" style="font-family: var(--text); font-variation-settings: var(--text-fvs); line-height: var(--text-lh)">
+        <p class="glyphs">Rag &amp; quirk? 395</p>
+        <div class="meet">
+          <div>
+            <p class="m-label ships">h2 in Inter: ships</p>
+            <p class="m-h2 self">What we bought</p>
+            <h3>Four items across three orders</h3>
+            <p><b>All of it is ordered:</b> the flight case, the stage box and a Phenyx 8-mic kit.</p>
+          </div>
+          <div>
+            <p class="m-label">h2 in Bricolage: the near miss</p>
+            <p class="m-h2 bric">What we bought</p>
+            <h3>Four items across three orders</h3>
+            <p><b>All of it is ordered:</b> the flight case, the stage box and a Phenyx 8-mic kit.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="face" style="--text: var(--serif); --text-fvs: normal; --text-lh: 1.5">
+      <div class="about">
+        <p class="name">Source Serif 4</p>
+        <p class="note">Legal and financial paper. A table needs a step of about 0.92rem to read as large as Bricolage does at 0.875rem; invoices and receipts are where that shows.</p>
+        <dl class="facts">
+          <dt>x-height</dt><dd>0.491 em</dd>
+          <dt>In a table</dt><dd>6.9px</dd>
+          <dt>Set width</dt><dd>2.0% narrower than Bricolage</dd>
+        </dl>
+      </div>
+      <div class="samples" style="font-family: var(--text); font-variation-settings: var(--text-fvs); line-height: var(--text-lh)">
+        <p class="glyphs">Rag &amp; quirk? 395</p>
+        <div class="meet">
+          <div>
+            <p class="m-label">h2 in Bricolage: what PR #3 first proposed</p>
+            <p class="m-h2 bric">What we keep</p>
+            <h3>How long we keep it</h3>
+            <p><b>Your records have no set end.</b> They are kept until you ask us to delete them.</p>
+          </div>
+          <div>
+            <p class="m-label ships">h2 in Source Serif 4: ships</p>
+            <p class="m-h2 self">What we keep</p>
+            <h3>How long we keep it</h3>
+            <p><b>Your records have no set end.</b> They are kept until you ask us to delete them.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="face" style="--text: var(--bricolage); --text-fvs: 'opsz' 14; --text-lh: 1.5">
+      <div class="about">
+        <p class="name">Bricolage Grotesque</p>
+        <p class="note">Today's text cut, for reference. One family, so nothing meets.</p>
+        <dl class="facts">
+          <dt>x-height</dt><dd>0.517 em</dd>
+          <dt>In a table</dt><dd>7.2px</dd>
+        </dl>
+      </div>
+      <div class="samples" style="font-family: var(--text); font-variation-settings: var(--text-fvs)">
+        <p class="glyphs">Rag &amp; quirk? 395</p>
+        <div class="meet one">
+          <div>
+            <p class="m-label">Today</p>
+            <p class="m-h2 bric">What we bought</p>
+            <h3>Four items across three orders</h3>
+            <p><b>All of it is ordered:</b> the flight case, the stage box and a Phenyx 8-mic kit.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>How the numbers were taken. x-height is the top of the lowercase x over the em, at weight 400, and at optical size 14 where the face has that axis. "In a table" is that x-height at 0.875rem. Set width is the brand's subhead at weight 400 at body size, against Bricolage's text cut.</p>
+  <p>Also considered and set aside: Newsreader, Instrument Sans, Hanken Grotesk and Schibsted Grotesk. Source Serif 4 is set at line height 1.6 and Inter at 1.5, as each would be in use. All three faces are OFL and load from Google Fonts, as the guide requires. Colors and sizes are the brand's tokens, v1.3.1. Slate is an example app name; nod's words are from its templates, and the privacy policy's from the site's legal pages.</p>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+
+    function setTheme(pick) {
+      if (pick === 'system') {
+        root.removeAttribute('data-theme');
+      } else {
+        root.setAttribute('data-theme', pick);
+      }
+      document.querySelectorAll('button[data-theme-pick]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-theme-pick') === pick));
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-theme-pick]');
+      if (b) {
+        setTheme(b.getAttribute('data-theme-pick'));
+      }
+    });
+
+    setTheme(root.getAttribute('data-theme') || 'system');
+  })();
+</script>
